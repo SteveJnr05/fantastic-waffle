@@ -1,0 +1,9 @@
+{% if choice_list%}
+    <ul>
+    {% for ch in choice_list%}
+        <li><a href="/polls/{{ question.id }}/">{{ ch.choice_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No choice is available.</p>
+{% endif %}

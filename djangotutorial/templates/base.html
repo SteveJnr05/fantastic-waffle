@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Polls App
+        {% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        <a href="/">PollsApp</a>
+    </div>
+
+    <nav>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="/polls/">Polls</a>
+            </li>
+
+            <li>
+                <a href="/payments/plans/">Pricing</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <div class="user-section">
+
+        {% if user.is_authenticated %}
+
+            <span class="username">
+                {{ user.username }}
+            </span>
+
+            <a href="/accounts/logout/" class="logout-btn">
+                Logout
+            </a>
+
+        {% else %}
+
+            <a href="/accounts/login/" class="login-btn">
+                Login
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</header>
+
+
+{% if messages %}
+
+<div class="messages">
+
+    {% for message in messages %}
+
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Subscription Plans
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/payment.css' %}">
+
+<section class="pricing-section">
+
+    <div class="pricing-header">
+        <h1>Choose Your Plan</h1>
+        <p>Select the subscription that best fits your needs.</p>
+    </div>
+
+    <div class="pricing-container">
+
+        {% for plan in plans %}
+
+        <div class="plan-card {% if plan.name|lower == 'pro' %}featured{% endif %}">
+
+            {% if plan.name|lower == "pro" %}
+            <span class="badge">Most Popular</span>
+            {% endif %}
+
+            <h2>{{ plan.name }}</h2>
+
+            <div class="price">
+                ₦{{ plan.price }}
+            </div>
+
+            <p class="duration">
+                Every {{ plan.duration_days }} days
+            </p>
+
+            <ul>
+
+                {% if plan.name|lower == "basic" %}
+
+                <li>✔ Create Polls</li>
+                <li>✔ Participate in Voting</li>
+                <li>✔ Basic Analytics</li>
+
+                {% elif plan.name|lower == "pro" %}
+
+                <li>✔ Unlimited Polls</li>
+                <li>✔ Advanced Analytics</li>
+                <li>✔ Export Results</li>
+                <li>✔ Priority Support</li>
+
+                {% else %}
+
+                <li>✔ Premium Features</li>
+
+                {% endif %}
+
+            </ul>
+
+            <a href="{% url 'initialize_payment' plan.id %}" class="subscribe-btn">
+                {% if plan.name|lower == "basic" %}
+                    Start Basic Plan
+                {% else %}
+                    Upgrade to Pro
+                {% endif %}
+            </a>
+
+        </div>
+
+        {% empty %}
+
+        <p>No subscription plans available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

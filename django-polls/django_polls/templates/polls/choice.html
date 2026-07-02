@@ -1,0 +1,7 @@
+<ul>
+    {% for choice in choice_list %}
+        {% if not choice.id|divisibleby:2 %}
+            <li>{{ choice.choice_text }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>

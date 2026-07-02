@@ -1,0 +1,32 @@
+{% extends "polls/base.html" %}
+{% block title %}Vote: {{ question.question_text }}{% endblock %}
+{% block content %}
+<article class="poll-card wide">
+  <div class="card-body">
+    <h2 class="q-title"><i class="fa fa-poll"></i> {{ question.question_text }}</h2>
+
+    <form action="{% url 'polls:vote' question.id %}" method="post" class="vote-form">
+      {% csrf_token %}
+      <ul class="choices-list">
+        {% for choice in question.choice.all %}
+          <li>
+            <label class="choice">
+              <input type="radio" name="choice" value="{{ choice.id }}">
+              <span class="choice-text">{{ choice.choice_text }}</span>
+            </label>
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% if error_message %}
+        <p class="error">{{ error_message }}</p>
+      {% endif %}
+
+      <div class="form-actions">
+        <button type="submit" class="btn primary"><i class="fa fa-paper-plane"></i> Submit Vote</button>
+        <a class="btn outline" href="{% url 'polls:results' question.id %}"><i class="fa fa-chart-bar"></i> View Results</a>
+      </div>
+    </form>
+  </div>
+</article>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "polls/base.html" %}
+{% block title %}Results: {{ question.question_text }}{% endblock %}
+{% block content %}
+<article class="poll-card wide">
+  <div class="card-body">
+    <h2 class="q-title"><i class="fa fa-chart-simple"></i> Results for: {{ question.question_text }}</h2>
+
+    <ul class="results-list">
+      {% for item in choices_with_pct %}
+        {% with choice=item.choice pct=item.pct %}
+        <li class="result-row" tabindex="0">
+          <div class="choice-info">
+            <strong>{{ choice.choice_text }}</strong>
+            <div class="meta-right">
+              <span class="badge">{{ choice.votes }} votes</span>
+              <span class="pct-badge">{{ pct }}%</span>
+            </div>
+          </div>
+
+          <div class="progress" aria-hidden="true">
+            <div class="progress-fill" style="width:{{ pct }}%;"></div>
+          </div>
+        </li>
+        {% endwith %}
+      {% endfor %}
+    </ul>
+
+    <div class="card-actions">
+      <a class="btn outline" href="{% url 'polls:detail' question.id %}"><i class="fa fa-arrow-left"></i> Back to Vote</a>
+      <a class="btn ghost" href="{% url 'polls:index' %}"><i class="fa fa-home"></i> Polls</a>
+    </div>
+
+    <p class="totals">Total votes: <strong>{{ total_votes }}</strong></p>
+  </div>
+</article>
+{% endblock %}

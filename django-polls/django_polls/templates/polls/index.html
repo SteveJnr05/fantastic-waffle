@@ -1,0 +1,24 @@
+{% extends "polls/base.html" %}
+{% block title %}Latest Polls{% endblock %}
+{% block content %}
+<div class="cards">
+  {% if latest_question_list %}
+    {% for question in latest_question_list %}
+    <a href="{% url 'polls:detail' question.id %}" class="poll-card-link">
+      <article class="poll-card">
+        <div class="card-body">
+          <h2 class="q-title"><i class="fa fa-question-circle"></i> {{ question.question_text }}</h2>
+          <div class="meta">Published: {{ question.pub_date|date:"M j, Y" }}</div>
+          <div class="card-actions">
+            <span class="btn primary"><i class="fa fa-vote-yea"></i> Vote</span>
+            <span class="btn outline"><i class="fa fa-chart-bar"></i> Results</span>
+          </div>
+        </div>
+      </article>
+    </a>
+    {% endfor %}
+  {% else %}
+    <p>No polls are available.</p>
+  {% endif %}
+</div>
+{% endblock %}

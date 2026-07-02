@@ -1,0 +1,30 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Polls{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-row">
+      <h1 class="brand"><a href="{% url 'polls:index' %}">Polling App</a></h1>
+      <nav class="nav">
+        <a class="btn ghost" href="{% url 'admin:index' %}"><i class="fa fa-cog"></i> Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-center">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="container footer">
+    <small>© {{ now|date:"Y" }} Polling App</small>
+  </footer>
+</body>
+</html>
